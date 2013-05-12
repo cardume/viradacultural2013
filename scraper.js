@@ -27,6 +27,10 @@
 
 			$placeData.each(function() {
 
+				if($(this).is('h2')) {
+					return false;
+				}
+
 				if($(this).is('h3')) {
 
 					day = trim($(this).text());
