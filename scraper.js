@@ -23,9 +23,13 @@
 
 			var day, time;
 
+			var lat = -23.53;
+
+			var lng = -46.64;
+
 			var $placeData = $(this).nextUntil('br');
 
-			$placeData.each(function() {
+			$placeData.each(function(i) {
 
 				if($(this).is('h2')) {
 					return false;
@@ -45,8 +49,13 @@
 						name: trim($(this).text()),
 						day: day,
 						time: time,
-						place: place
+						place: place,
+						lat: lat,
+						lng: lng
 					});
+
+					lat = lat - (i*0.001);
+					lng = lng - (i*0.001);
 
 				}
 
@@ -56,6 +65,18 @@
 
 		var config = {
 			data: projects,
+			dataRef: {
+				lat: 'lat',
+				lng: 'lng'
+			},
+			map: {
+				center: [-23.5369, -46.6478],
+				zoom: 12,
+				maxZoom: 18,
+				markers: {
+					cluster: true
+				}
+			},
 			filters: [
 				{
 					name: 's',
