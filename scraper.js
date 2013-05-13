@@ -21,7 +21,7 @@
 
 		// get places
 		$.ajax({
-			url: places_url,
+			url: places_fallback_url,
 			dataType: 'json',
 			error: function(jqxhr, status, error) {
 				console.log(status + ' ' + error);
