@@ -34,14 +34,7 @@
 
 		function doYourThing(places) {
 
-			var jumph2 = 0;
-
 			$projects.find('h2').each(function() {
-
-				if(jumph2 >= 1) {
-					jumph2--;
-					return;
-				}
 
 				var place = $(this).text();
 
@@ -49,17 +42,14 @@
 
 				var day, time;
 
-				var $placeData = $(this).nextUntil('br');
+				var $placeData = $(this).nextUntil('h2');
+
+				if(!$placeData.length) {
+					console.log($(this).text());
+					place += ',' + $(this).text();
+				}
 
 				$placeData.each(function(i) {
-
-					if($(this).is('h2')) {
-
-						jumph2++;
-
-						place += ',' + $(this).text();
-
-					}
 
 					if($(this).is('h3')) {
 
@@ -95,7 +85,7 @@
 					lng: 'location_longitude'
 				},
 				map: {
-					center: [-23.5369, -46.6478],
+					center: [-23.60, -46.6478],
 					zoom: 11,
 					maxZoom: 18,
 					markers: {
