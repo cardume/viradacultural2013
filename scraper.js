@@ -8,16 +8,11 @@
 
 	var projects = [];
 
-	$.ajax({
-		url: projects_url,
-		dataType: 'text',
-		error: function(jqxhr, status, error) {
-			console.log(status + ' ' + error);
-		},
-		success: scrap
-	});
+	var $projects = $('<div />');
 
-	function scrap(data) {
+	$projects.load(projects_url + ' #holder-atracoes', scrap);
+
+	function scrap() {
 
 		// get places
 		$.ajax({
@@ -35,13 +30,11 @@
 				})
 			},
 			success: doYourThing
-		})
+		});
 
 		function doYourThing(places) {
 
-			var $page = $(data);
-
-			$page.find('h2').each(function() {
+			$projects.find('h2').each(function() {
 
 				var place = $(this).text();
 
@@ -54,7 +47,9 @@
 				$placeData.each(function(i) {
 
 					if($(this).is('h2')) {
-						return false;
+
+						place += ',' + $(this).text();
+
 					}
 
 					if($(this).is('h3')) {
@@ -65,7 +60,7 @@
 
 						time = trim($(this).text());
 
-					} else {
+					} else if($(this).is('dd')) {
 
 						var project = {
 							name: trim($(this).text()),
@@ -115,6 +110,7 @@
 						name: 'local',
 						sourceRef: 'place',
 						type: 'multiple-select',
+						split: ',',
 						title: 'Local'
 					},
 					{
