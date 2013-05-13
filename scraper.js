@@ -34,21 +34,29 @@
 
 		function doYourThing(places) {
 
+			var hasData, c;
+
 			$projects.find('h2').each(function() {
 
 				var place = $(this).text();
 
 				var $placeData = $(this).nextUntil('h2');
 
-				if(!$placeData.length) {
+				hasData = false;
+				c = 0;
 
-					$placeData = $(this).nextUntil('h2');
+				do {
 
-				} else {
+					if($placeData.length || c >= 3)
+						hasData = true;
 
-					storePlaceData(place, $placeData);
+					$placeData = $(this).next().nextUntil('h2');
 
-				}
+					c++;
+
+				} while(!hasData);
+
+				storePlaceData(place, $placeData);
 
 			});
 
