@@ -48,11 +48,16 @@
 				do {
 
 					if($placeData.length || c >= 3)
+
 						hasData = true;
 
-					$placeData = $(this).next().nextUntil('h2');
+					else {
 
-					c++;
+						$placeData = $(this).next().nextUntil('h2');
+
+						c++;
+
+					}
 
 				} while(!hasData);
 
