@@ -34,7 +34,14 @@
 
 		function doYourThing(places) {
 
+			var jumph2 = 0;
+
 			$projects.find('h2').each(function() {
+
+				if(jumph2 >= 1) {
+					jumph2--;
+					return;
+				}
 
 				var place = $(this).text();
 
@@ -47,6 +54,8 @@
 				$placeData.each(function(i) {
 
 					if($(this).is('h2')) {
+
+						jumph2++;
 
 						place += ',' + $(this).text();
 
