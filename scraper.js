@@ -38,16 +38,25 @@
 
 				var place = $(this).text();
 
-				var placeData = _.find(places, function(p) { return p.location_name.indexOf(place) !== -1; })
-
-				var day, time;
-
 				var $placeData = $(this).nextUntil('h2');
 
 				if(!$placeData.length) {
-					console.log($(this).text());
-					place += ',' + $(this).text();
+
+					$placeData = $(this).nextUntil('h2');
+
+				} else {
+
+					storePlaceData(place, $placeData);
+
 				}
+
+			});
+
+			function storePlaceData(place, $placeData) {
+
+				var day, time;
+
+				var placeData = _.find(places, function(p) { return p.location_name.indexOf(place) !== -1; });
 
 				$placeData.each(function(i) {
 
@@ -75,8 +84,8 @@
 					}
 
 				});
+			}
 
-			});
 
 			var config = {
 				data: projects,
