@@ -126,7 +126,7 @@
 					}
 				],
 				templates: {
-					marker: '<h4><%= item.name %></h4><%= item.location_balloon %>',
+					marker: '<h4><%= item.name %></h4><h5><%= item.place %></h5><p><%= item.day %>, às <%= item.time %></p>',
 					list: '<p class="category"><%= item.place %></p><h3><%= item.name %></h3><p><%= item.day %>, às <%= item.time %></p>',
 					single: '<p class="cat"><%= item.place %></p><h2><%= item.name %></h2><p><%= item.day %>, às <%= item.time %></p><p><%= item.post_content %></p>'
 				},
