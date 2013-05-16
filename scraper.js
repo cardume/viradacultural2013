@@ -4,7 +4,7 @@
 
 	var places_url = 'http://viradacultural.prefeitura.sp.gov.br/programacao?width=470&height=760&em_ajax=true&query=GlobalMapData&callback=?';
 
-	var places_fallback_url = 'data/places.json';
+	var places_fallback_url = 'data/places_02.json';
 
 	var projects = [];
 
@@ -36,30 +36,11 @@
 
 			var hasData, c;
 
-			$projects.find('h2').each(function() {
+			$projects.find('.holder-content-atracoes').each(function() {
 
-				var place = $(this).text();
+				var place = $(this).find('.tit-atracoes').text();
 
-				var $placeData = $(this).nextUntil('h2');
-
-				hasData = false;
-				c = 0;
-
-				do {
-
-					if($placeData.length || c >= 3)
-
-						hasData = true;
-
-					else {
-
-						$placeData = $(this).next().nextUntil('h2');
-
-						c++;
-
-					}
-
-				} while(!hasData);
+				var $placeData = $(this);
 
 				storePlaceData(place, $placeData);
 
@@ -71,9 +52,12 @@
 
 				var placeData = _.find(places, function(p) { return p.location_name.indexOf(place) !== -1; });
 
-				$placeData.each(function(i) {
+				if(!placeData)
+					console.log(place);
 
-					if($(this).is('h3')) {
+				$placeData.find('.holder-content-atracoes-boxes > *').each(function(i) {
+
+					if($(this).is('h4')) {
 
 						day = trim($(this).text());
 
