@@ -2,9 +2,9 @@
 
 	var projects_url = 'data/projects.html';
 
-	var places_url = 'http://viradacultural.prefeitura.sp.gov.br/programacao?width=470&height=760&em_ajax=true&query=GlobalMapData&callback=?';
+	var places_url = 'http://viradacultural.prefeitura.sp.gov.br/programacao/locais/';
 
-	var places_fallback_url = 'data/places_02.json';
+	var places_data = 'data/places_02.json';
 
 	var projects = [];
 
@@ -16,18 +16,10 @@
 
 		// get places
 		$.ajax({
-			url: places_fallback_url,
+			url: places_data,
 			dataType: 'json',
-			error: function(jqxhr, status, error) {
-				console.log(status + ' ' + error);
-				$.ajax({
-					url: places_fallback_url,
-					dataType: 'json',
-					error: function() {
-						alert('Alguma coisa deu errado, desculpe');
-					},
-					success: doYourThing
-				})
+			error: function() {
+				alert('Alguma coisa deu errado, desculpe');
 			},
 			success: doYourThing
 		});
@@ -128,7 +120,7 @@
 				templates: {
 					marker: '<h4><%= item.name %></h4><h5><%= item.place %></h5><p><%= item.day %>, às <%= item.time %></p>',
 					list: '<p class="category"><%= item.place %></p><h3><%= item.name %></h3><p><%= item.day %>, às <%= item.time %></p>',
-					single: '<p class="cat"><%= item.place %></p><h2><%= item.name %></h2><p><%= item.day %>, às <%= item.time %></p><p><%= item.post_content %></p>'
+					single: '<p class="cat"><%= item.place %></p><h2><%= item.name %></h2><p><%= item.day %>, às <%= item.time %></p><p class="original_url"><a href="' + places_url + '<%= item.location_slug %>" target="_blank" rel="external">Ver no site oficial</a></p><h3>Informações sobre o local</h3><div class="h3-content"><p><%= item.post_content %></div></p>'
 				},
 				labels: {
 					title: 'VIRADA CULTURAL 2013',
